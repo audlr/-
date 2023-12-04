@@ -1,2 +1,5 @@
 folium
 folium_static
+streamlit
+pandas
+numpy
