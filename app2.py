@@ -15,7 +15,7 @@ if "user_name" not in st.session_state:
     st.session_state.user_name = ""
 
 user_favorite = []
-user_ID = "0"
+user_ID = 0
 
 if st.session_state.page_number == 1:
     user_favorite = []
