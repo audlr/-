@@ -12,7 +12,7 @@ import seaborn as sns
 import warnings
 warnings.filterwarnings('ignore')
 
-df = pd.read_csv('/Users/martinkim/Desktop/zomato.csv',
+df = pd.read_csv('zomato.csv',
                  engine='python', on_bad_lines='skip', encoding='utf-8')
 
 # 전처리 과정
