@@ -69,6 +69,7 @@ if st.session_state.page_number == 3:
                 st.write(f"식당: {recommended_df['name'].values[i]}")
                 st.write(f"주소: {recommended_df['address'].values[i]}")
                 st.write(f"cuisines: {recommended_df['cuisines'].values[i]}")
+                st.write(f"cost: {recommended_df['cost'].values[i]}")
                 st.write(f"리뷰: {recommended_df['reviews_list'].values[i]}")
             with col2:
                 geolocator = Nominatim(user_agent="my_geocoder")
