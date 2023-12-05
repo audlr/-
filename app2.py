@@ -43,15 +43,11 @@ if st.session_state.page_number == 2:
     Hello_choice = st.empty()
     Hello_choice.subheader(f"{user_ID} 님께서 다녀오신 곳이에요")
 
-    #select_restaurants = restaurants.sample(10, random_state=42)  # 더미
+    select_restaurants = ['Spice Elephant', 'Flavours - Octave Hotel & Spa', 'Paprica', "Palki'S", 'The Onyx - The Hhi Select Bengaluru', 'Nouvelle Garden']
 
     container1= st.empty()
     with container1.expander(f"Went", expanded=True):
-        selected_restaurant_name = st.selectbox("", select_restaurants)
-
-        selected_restaurant = restaurants[restaurants['Name'] == selected_restaurant_name]
-        st.write(f"{selected_restaurant['Name'].values[0]}")
-        st.write(f"내 리뷰: {selected_restaurant['Review'].values[0]}")
+        st.write(f"{select_restaurant.values[0]}")
         
         next_button_3 = st.button("다음", key="next_button_3")
         if next_button_3:
