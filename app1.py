@@ -164,7 +164,7 @@ if st.session_state.page_number == 3:
                 recommended_df.loc[i, 'Longitude'] = longitude
 
                 m = folium.Map(location=recommended_df.iloc[i][['Latitude', 'Longitude']], zoom_start=15)
-                folium.Marker(recommended_df.iloc[i][['Latitude', 'Longitude']], popup=f"{recommended_df['Address'].iloc[0]}").add_to(m)
+                folium.Marker(recommended_df.iloc[i][['Latitude', 'Longitude']], popup=f"{recommended_df['address'].iloc[i]}").add_to(m)
                 folium_static(m, width=350, height=150)
 
     next_button_2 = st.button("다시 선택", key="next_button_2")
