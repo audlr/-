@@ -6,4 +6,4 @@ numpy
 geopy
 matplotlib
 seaborn
-sklearn
+scikit-learn
