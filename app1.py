@@ -4,6 +4,7 @@ import numpy as np
 import folium
 from streamlit_folium import folium_static
 from geopy.geocoders import Nominatim
+import task1
 
 st.set_page_config(page_title="음식점 추천 서비스", page_icon="🍔", layout="wide")
 
