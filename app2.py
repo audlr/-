@@ -59,7 +59,7 @@ if st.session_state.page_number == 3:
     st.write("---")
     Answer_name = st.empty()
     Answer_name.subheader(f"이번엔 여기 어떠세요?")
-    selected_restaurant = recommended_2(user_ID)
+    selected_restaurant = task2.recommended_2(user_ID)
 
     if selected_restaurant is not None:
         container2= st.empty()
