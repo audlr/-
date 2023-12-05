@@ -61,27 +61,30 @@ if st.session_state.page_number == 3:
     Answer_name.subheader(f"이번엔 여기 어떠세요?")
     selected_restaurant = task2.recommended_2(user_ID)
 
-    container2= st.empty()
-    with container2.expander(f"Recommend", expanded=True):
-        for i in range(3):
-            col1, col2 = st.columns(2, gap="small")
-            with col1:
-                st.write(f"식당: {selected_restaurant['Name'].values[0]}")
-                st.write(f"주소: {selected_restaurant['address'].values[0]}")
-                st.write(f"cuisines: {selected_restaurant['cuisines'].values[0]}")
-                st.write(f"리뷰: {selected_restaurant['reviews_list'].values[0]}")
-            with col2:
-                geolocator = Nominatim(user_agent="my_geocoder")
-                location = geolocator.geocode(selected_restaurant['address'].values[0])
-                
-                if location:
-                    latitude, longitude = location.latitude, location.longitude
-                else:
-                    latitude, longitude = None, None
-
-                selected_restaurant.loc[i, 'Latitude'] = latitude
-                selected_restaurant.loc[i, 'Longitude'] = longitude
-                
-                m = folium.Map(location=selected_restaurant.iloc[i][['Latitude', 'Longitude']], zoom_start=15)
-                folium.Marker(selected_restaurant.iloc[i][['Latitude', 'Longitude']], popup=f"추천 음식점\n{selected_restaurant['Address'].iloc[0]}").add_to(m)
-                folium_static(m, width=350, height=150)
+    if selected_restaurant is not None:
+        container2= st.empty()
+        with container2.expander(f"Recommend", expanded=True):
+            for i in range(3):
+                col1, col2 = st.columns(2, gap="small")
+                with col1:
+                    st.write(f"식당: {selected_restaurant['Name'].values[0]}")
+                    st.write(f"주소: {selected_restaurant['address'].values[0]}")
+                    st.write(f"cuisines: {selected_restaurant['cuisines'].values[0]}")
+                    st.write(f"리뷰: {selected_restaurant['reviews_list'].values[0]}")
+                with col2:
+                    geolocator = Nominatim(user_agent="my_geocoder")
+                    location = geolocator.geocode(selected_restaurant['address'].values[0])
+                    
+                    if location:
+                        latitude, longitude = location.latitude, location.longitude
+                    else:
+                        latitude, longitude = None, None
+    
+                    selected_restaurant.loc[i, 'Latitude'] = latitude
+                    selected_restaurant.loc[i, 'Longitude'] = longitude
+                    
+                    m = folium.Map(location=selected_restaurant.iloc[i][['Latitude', 'Longitude']], zoom_start=15)
+                    folium.Marker(selected_restaurant.iloc[i][['Latitude', 'Longitude']], popup=f"추천 음식점\n{selected_restaurant['Address'].iloc[0]}").add_to(m)
+                    folium_static(m, width=350, height=150)
+    else:
+        st.warning("User not found. Please provide a valid user ID.")
