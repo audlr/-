@@ -70,13 +70,9 @@ if st.session_state.page_number == 3:
                     st.write(f"식당: {selected_restaurant['name'].values[i]}")
                     st.write(f"주소: {selected_restaurant['address'].values[i]}")
                     st.write(f"cuisines: {selected_restaurant['cuisines'].values[i]}")
-                    st.write(f"리뷰: {selected_restaurant['reviews_list'].values[i]}")
-                with col2:
-                    st.write(f"식당: {selected_restaurant['name'].values[i]}")
-                    st.write(f"주소: {selected_restaurant['address'].values[i]}")
-                    st.write(f"cuisines: {selected_restaurant['cuisines'].values[i]}")
-                    st.write(f"리뷰: {selected_restaurant['reviews_list'].values[i]}")
-                
+                    review_text = selected_restaurant['reviews_list'].values[i]
+                    st.write(f"리뷰: {review_text[:500]}")
+                with col2:                
                     geolocator = Nominatim(user_agent="my_geocoder")
                     location = geolocator.geocode(selected_restaurant['address'].values[i])
                 
@@ -87,7 +83,7 @@ if st.session_state.page_number == 3:
                 
                         m = folium.Map(location=[latitude, longitude], zoom_start=15)
                         folium.Marker([latitude, longitude], popup=f"{selected_restaurant['address'].iloc[i]}").add_to(m)
-                        folium_static(m, width=350, height=150)
+                        folium_static(m, width=500, height=400)
                     else:
                         st.warning(f"Location not found for {selected_restaurant['name'].values[i]}. Skipping map creation.")
     else:
