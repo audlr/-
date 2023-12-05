@@ -47,7 +47,7 @@ if st.session_state.page_number == 2:
 
     container1= st.empty()
     with container1.expander(f"Went", expanded=True):
-        st.write(f"{select_restaurants.values[0]}")
+        st.write(f"{select_restaurants[0]}")
         
         next_button_3 = st.button("다음", key="next_button_3")
         if next_button_3:
