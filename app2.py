@@ -41,7 +41,7 @@ if st.session_state.page_number == 2:
     Hello_name = st.empty()
     Hello_name.title(f"반가워요, {user_ID} 님!")
     Hello_choice = st.empty()
-    Hello_choice.subheader(f"{user_ID} 님께서 다녀오신 곳이에요")
+    Hello_choice.subheader(f"{user_ID} 님께서 가장 최근에 다녀오신 곳이에요")
 
     select_restaurants = ['Spice Elephant', 'Flavours - Octave Hotel & Spa', 'Paprica', "Palki'S", 'The Onyx - The Hhi Select Bengaluru', 'Nouvelle Garden']
 
