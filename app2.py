@@ -64,7 +64,7 @@ if st.session_state.page_number == 3:
     if selected_restaurant is not None:
         container2= st.empty()
         with container2.expander(f"Recommend", expanded=True):
-            for i in range(5):
+            for i in range(8):
                 col1, col2 = st.columns(2, gap="small")
                 with col1:
                     st.write(f"식당: {selected_restaurant['name'].values[i]}")
@@ -73,7 +73,7 @@ if st.session_state.page_number == 3:
                     st.write(f"리뷰: {selected_restaurant['reviews_list'].values[i]}")
                 with col2:
                     geolocator = Nominatim(user_agent="my_geocoder")
-                    location = geolocator.geocode(selected_restaurant['address'].values[issubclass])
+                    location = geolocator.geocode(selected_restaurant['address'].values[i])
                     
                     if location:
                         latitude, longitude = location.latitude, location.longitude
