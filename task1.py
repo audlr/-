@@ -67,8 +67,15 @@ def get_recommendations(df, title):
     return recommended_restaurants
 
 df_copied = df.copy()
-# 파라미터로 음식점 이름이 들어갑니다 ! (음식점 이름 변경 시 여기에 들어가는 파라미터를 변경해야 함)
-recommended_restaurants = get_recommendations(df_copied, 'Spice Elephant')
 
+def recommended_1(resta_name):
+    recommended_restaurants = get_recommendations(df_copied, resta_name)
+    recommended_df = df[df['name'].isin(recommended_restaurants)]
+
+    return recommended_df
+
+
+# 파라미터로 음식점 이름이 들어갑니다 ! (음식점 이름 변경 시 여기에 들어가는 파라미터를 변경해야 함)
+#recommended_restaurants = get_recommendations(df_copied, 'Spice Elephant')
 # 결과 출력
-print(recommended_restaurants)
+#print(recommended_restaurants)
