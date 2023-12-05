@@ -61,31 +61,33 @@ if st.session_state.page_number == 3:
     Answer_name = st.empty()
     Answer_name.subheader(f"{user_name} 님께서 선택하신 곳과 비슷한 식당이에요")
 
-    container2= st.empty()
-    with container2.expander(f"Recommend", expanded=True):
-        for i in range(5):
-            col1, col2 = st.columns(2, gap="small")
-            with col1:
-                st.write(f"식당: {recommended_df['name'].values[i]}")
-                st.write(f"주소: {recommended_df['address'].values[i]}")
-                st.write(f"cuisines: {recommended_df['cuisines'].values[i]}")
-                st.write(f"cost: {recommended_df['cost'].values[i]}")
-                st.write(f"리뷰: {recommended_df['reviews_list'].values[i]}")
-            with col2:
-                geolocator = Nominatim(user_agent="my_geocoder")
-                location = geolocator.geocode(recommended_df['address'].values[0])
+    if selected_restaurant is not None:
+        container2= st.empty()
+        with container2.expander(f"Recommend", expanded=True):
+            for i in range(5):
+                col1, col2 = st.columns(2, gap="small")
+                with col1:
+                    st.write(f"식당: {selected_restaurant['name'].values[i]}")
+                    st.write(f"주소: {selected_restaurant['address'].values[i]}")
+                    st.write(f"cuisines: {selected_restaurant['cuisines'].values[i]}")
+                    review_text = selected_restaurant['reviews_list'].values[i]
+                    st.write(f"리뷰: {review_text[:500]}")
+                with col2:                
+                    geolocator = Nominatim(user_agent="my_geocoder")
+                    location = geolocator.geocode(selected_restaurant['address'].values[i])
                 
-                if location:
-                    latitude, longitude = location.latitude, location.longitude
-                else:
-                    latitude, longitude = None, None
-
-                recommended_df.loc[i, 'Latitude'] = latitude
-                recommended_df.loc[i, 'Longitude'] = longitude
-
-                m = folium.Map(location=recommended_df.iloc[i][['Latitude', 'Longitude']], zoom_start=15)
-                folium.Marker(recommended_df.iloc[i][['Latitude', 'Longitude']], popup=f"{recommended_df['address'].iloc[i]}").add_to(m)
-                folium_static(m, width=350, height=150)
+                    if location:
+                        latitude, longitude = location.latitude, location.longitude
+                        selected_restaurant.loc[i, 'Latitude'] = latitude
+                        selected_restaurant.loc[i, 'Longitude'] = longitude
+                
+                        m = folium.Map(location=[latitude, longitude], zoom_start=15)
+                        folium.Marker([latitude, longitude], popup=f"{selected_restaurant['address'].iloc[i]}").add_to(m)
+                        folium_static(m, width=500, height=400)
+                    else:
+                        st.warning(f"Location not found for {selected_restaurant['name'].values[i]}. Skipping map creation.")
+    else:
+        st.warning("User not found. Please provide a valid user ID.")
 
     next_button_2 = st.button("다시 선택", key="next_button_2")
     if next_button_2 and not selected_restaurant.empty:
