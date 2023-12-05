@@ -80,6 +80,11 @@ def recommend_items(user_id, user_similarity, ratings_pivot, top_n=5):
 
     return recommended_item_names
 
+def rexommended_2(user_id):
+    recommended_items = recommend_items(user_id, user_similarity, ratings_pivot)
+
+    return recommended_items
+
 # 0번 사용자에 대해서 해당 사용자가 가보지 못한 장소 중 5개 추천 (즉, 맨 앞 숫자를 바꾸면 사용자 번호가 바뀜)
-recommended_items = recommend_items(0, user_similarity, ratings_pivot)
-print("Recommended items for user 0:", recommended_items)
+#recommended_items = recommend_items(0, user_similarity, ratings_pivot)
+#print("Recommended items for user 0:", recommended_items)
