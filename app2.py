@@ -72,19 +72,23 @@ if st.session_state.page_number == 3:
                     st.write(f"cuisines: {selected_restaurant['cuisines'].values[i]}")
                     st.write(f"리뷰: {selected_restaurant['reviews_list'].values[i]}")
                 with col2:
+                    st.write(f"식당: {selected_restaurant['name'].values[i]}")
+                    st.write(f"주소: {selected_restaurant['address'].values[i]}")
+                    st.write(f"cuisines: {selected_restaurant['cuisines'].values[i]}")
+                    st.write(f"리뷰: {selected_restaurant['reviews_list'].values[i]}")
+                
                     geolocator = Nominatim(user_agent="my_geocoder")
                     location = geolocator.geocode(selected_restaurant['address'].values[i])
-                    
+                
                     if location:
                         latitude, longitude = location.latitude, location.longitude
+                        selected_restaurant.loc[i, 'Latitude'] = latitude
+                        selected_restaurant.loc[i, 'Longitude'] = longitude
+                
+                        m = folium.Map(location=[latitude, longitude], zoom_start=15)
+                        folium.Marker([latitude, longitude], popup=f"{selected_restaurant['address'].iloc[i]}").add_to(m)
+                        folium_static(m, width=350, height=150)
                     else:
-                        latitude, longitude = None, None
-    
-                    selected_restaurant.loc[i, 'Latitude'] = latitude
-                    selected_restaurant.loc[i, 'Longitude'] = longitude
-                    
-                    m = folium.Map(location=selected_restaurant.iloc[i][['Latitude', 'Longitude']], zoom_start=15)
-                    folium.Marker(selected_restaurant.iloc[i][['Latitude', 'Longitude']], popup=f"{selected_restaurant['address'].iloc[i]}").add_to(m)
-                    folium_static(m, width=350, height=150)
+                        st.warning(f"Location not found for {selected_restaurant['name'].values[i]}. Skipping map creation.")
     else:
         st.warning("User not found. Please provide a valid user ID.")
