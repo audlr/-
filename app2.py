@@ -155,7 +155,7 @@ if st.session_state.page_number == 3:
             for i in range(5):
                 col1, col2 = st.columns(2, gap="small")
                 with col1:
-                    st.write(f"식당: {selected_restaurant['Name'].values[i]}")
+                    st.write(f"식당: {selected_restaurant['name'].values[i]}")
                     st.write(f"주소: {selected_restaurant['address'].values[i]}")
                     st.write(f"cuisines: {selected_restaurant['cuisines'].values[i]}")
                     st.write(f"리뷰: {selected_restaurant['reviews_list'].values[i]}")
